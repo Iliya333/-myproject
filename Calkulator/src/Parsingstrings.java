@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -29,11 +28,7 @@ public class Parsingstrings{
         operations = new char[]{'+', '-', '*', '/'};
     }
 
-    /**
-     * Метод отдает результат парсинга
-     * @return Result - результат парсинга строки выражения
-     */
-    public Deystviya getResult() {
+        public Deystviya getResult() {
         int a=0, b=0;
         String operation = "";
         String [] arr;

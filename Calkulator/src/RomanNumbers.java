@@ -29,11 +29,7 @@ public class RomanNumbers {
     }
 
 
-    /**
-     * Преобразует римские числа в арабские
-     * @param input на входе строка
-     * @return возвращает целое число
-     */
+
     public static int romanToArabic(String input) {
         String romanNumeral = input.toUpperCase();
         int result = 0;
@@ -53,18 +49,13 @@ public class RomanNumbers {
         }
 
         if (romanNumeral.length() > 0) {
-            throw new IllegalArgumentException(input + " cannot be converted to a Roman Numeral");
+            throw new IllegalArgumentException(input + " \n" + "аннотацию можно преобразовать в римскую цифру");
         }
 
         return result;
     }
 
-    /**
-     * Преобразует арабское число в римское
-     * @param number на входе целое число типа int
-     * @return возвращает строку
-     */
-    public static String arabicToRoman(int number) {
+        public static String arabicToRoman(int number) {
         if ((number <= 0) || (number > 4000)) {
             throw new IllegalArgumentException(number + " вне допустимого диапазона (0,4000]");
         }
