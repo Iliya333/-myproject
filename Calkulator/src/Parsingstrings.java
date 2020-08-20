@@ -1,120 +1,93 @@
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
+public class Parsingstrings{
 
-public class Parsingstrings {
-    private static String s;
-    private static String g;
+    private String str;
+    private String regexArab;
+    private String regexRome;
+    private Map<String, Integer> toInt;
+    private char [] operations;
 
-    enum RomanNumeral {
-        I(1), IV(4), V(5), IX(9), X(10),
-        XL(40), L(50), XC(90), C(100),
-        CD(400), D(500), CM(900), M(1000);
-
-        private int value;
-
-
-        RomanNumeral(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public static List<RomanNumeral> getReverseSortedValues() {
-            return Arrays.stream(values())
-                    .sorted(Comparator.comparing((RomanNumeral e) -> e.value).reversed())
-                    .collect(Collectors.toList());
-        }
+    public Parsingstrings (String str) {
+        this.str = str.trim();
+        this.regexArab = "[0-9]{1,2}\\s*[\\+\\-\\*/]{1}\\s*[0-9]{1,2}";
+        this.regexRome = "[IVX]{1,4}\\s*[\\+\\-\\*/]{1}\\s*[IVX]{1,4}";
+        toInt = new HashMap<>();
+        toInt.put("I", 1);
+        toInt.put("II", 2);
+        toInt.put("III", 3);
+        toInt.put("IV", 4);
+        toInt.put("V", 5);
+        toInt.put("VI", 6);
+        toInt.put("VII", 7);
+        toInt.put("VIII", 8);
+        toInt.put("IX", 9);
+        toInt.put("X", 10);
+        operations = new char[]{'+', '-', '*', '/'};
     }
 
-    public Parsingstrings(String si) {
-        s = si;
-    }
+    /**
+     * Метод отдает результат парсинга
+     * @return Result - результат парсинга строки выражения
+     */
+    public Deystviya getResult() {
+        int a=0, b=0;
+        String operation = "";
+        String [] arr;
+        String strTmp = "";
+        String numberType = "";
 
-    public static int toInt(String si) throws NoValidate {
-        if (TestCalculator.tipRA == TestCalculator.RomArab.Arab) {
-            return Integer.parseInt(si);
-        } else if (TestCalculator.tipRA == TestCalculator.RomArab.Rom) {
-            return romanToArabic(si);
-        } else throw new NoValidate("НЕ УСТАНОВЛЕН ТИП ЧИСЛА:" + si);
+        if (Pattern.matches(regexArab, str)) {
+            for (char tmp: operations) {
+                if (str.indexOf(tmp) != -1) {
+                    numberType = "arab";
+                    operation = String.valueOf(tmp);
+                    strTmp = str.replace(tmp, ';');
+                    arr = strTmp.split(";");
+                    if (arr.length == 2) {
+                        a = Integer.parseInt(arr[0].trim());
+                        b = Integer.parseInt(arr[1].trim());
 
-    }
-
-
-    public static TestCalculator.Action toAction(String si) {
-        switch (si) {
-            case "+":
-                return TestCalculator.Action.Plus;
-            case "-":
-                return TestCalculator.Action.Minus;
-            case "/":
-                return TestCalculator.Action.Div;
-            case "*":
-                return TestCalculator.Action.Mult;
-            default:
-        }
-        return TestCalculator.Action.Err;
-    }
-
-    private static int romanToArabic(String input) throws NoValidate {
-        String romanNumeral = input.toUpperCase();
-        int result = 0;
-
-        List<RomanNumeral> romanNumerals = RomanNumeral.getReverseSortedValues();
-
-        int i = 0;
-
-        while ((romanNumeral.length() > 0) && (i < romanNumerals.size())) {
-            RomanNumeral symbol = romanNumerals.get(i);
-            if (romanNumeral.startsWith(symbol.name())) {
-                result += symbol.getValue();
-                romanNumeral = romanNumeral.substring(symbol.name().length());
-            } else {
-                i++;
+                    } else {
+                        System.err.println("Выражение не правильное");
+                        return null;
+                    }
+                    break;
+                }
             }
+        } else if (Pattern.matches(regexRome, str)) {
+            for (char tmp: operations) {
+                if (str.indexOf(tmp) != -1) {
+                    numberType = "rome";
+                    operation = String.valueOf(tmp);
+                    strTmp = str.replace(tmp, ';');
+                    arr = strTmp.split(";");
+                    if (arr.length == 2) {
+                        if (toInt.containsKey(arr[0].trim()) && toInt.containsKey(arr[1].trim())) {
+                            a = toInt.get(arr[0].trim());
+                            b = toInt.get(arr[1].trim());
+                        } else {
+                            System.err.println("Не правильные римские числа");
+                            return null;
+                        }
+                    } else {
+                        System.err.println("Выражение не правильное");
+                        return null;
+                    }
+                    break;
+                }
+            }
+        } else {
+            System.err.println("Выражение введено не правильно!");
         }
-
-        if (romanNumeral.length() > 0) {
-            throw new NoValidate("НЕ распознала, как РИМСКИЕ:" + input);
+        if ((a>10) || (b>10)) {
+            System.err.println("Числа должны быть не больше 10 или Х!!!");
+            System.exit(0);
         }
-
+        Deystviya result = new Deystviya(a, b, operation, numberType);
         return result;
-
     }
-
-    public static String arabicToRoman(int namber) {
-        if ((namber <= 0) || (namber > 4000)) {
-            throw new IllegalArgumentException(namber + "Не можут быть меньше 0");
-        }
-
-        List<RomanNumeral> romanNumerals = RomanNumeral.getReverseSortedValues();
-
-        int i = 0;
-        StringBuilder sb = new StringBuilder();
-
-        while ((namber > 0) && (i < romanNumerals.size())) {
-            RomanNumeral currentSymbol = romanNumerals.get(i);
-            if (currentSymbol.getValue() <= namber) {
-                sb.append(currentSymbol.name());
-                namber -= currentSymbol.getValue();
-            } else {
-                i++;
-            }
-        }
-        return sb.toString();
-
-    }
-  }
-
-
-
-
-
-
-
-
-
+}

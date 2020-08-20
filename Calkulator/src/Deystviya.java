@@ -1,34 +1,70 @@
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Deystviya {
-     private Integer iRez;
-    private TestCalculator.Action action;
 
-    public int calc(int ival, TestCalculator.Action operation) {
-        if (iRez == null) {
-            iRez = ival;
-        } else {    //если уже было , делаем ранее запомненное действие, а потом запоминаем новое действие
-            switch (action) {
-                case Plus:
-                    iRez += ival;
-                    break;
-                case Minus:
-                    iRez -= ival;
-                    break;
-                case Mult:
-                    iRez = iRez * ival;
-                    break;
-                case Div:
-                    iRez = iRez / ival;
+        private int a;
+        private int b;
+        private int outputArabic;
+        private String outputRoman;
+        private String operation;
+        private String numberType;
+
+        public Deystviya (int a, int b, String operation, String numberType) {
+            this.a = a;
+            this.b = b;
+            this.operation = operation;
+            if (!numberType.equals("arab") && !numberType.equals("rome")) {
+                System.err.println("Не соответствие типов чисел!");
+                System.exit(0);
             }
+            this.numberType = numberType;
         }
-        action = operation;
-        return iRez;
-    }
-    public Integer result() {
-        return iRez;
-    }
+
+        public int getA() {
+            return a;
+        }
+
+        public int getB() {
+            return b;
+        }
+
+        public String getOperation() {
+            return operation;
+        }
+
+
+        public int getOutputArabic() {
+            switch (operation) {
+                case "+":
+                    outputArabic = (int) (a + b);
+                    break;
+                case "-":
+                    outputArabic = (int) (a - b);
+                    break;
+                case "*":
+                    outputArabic = (int) (a * b);
+                    break;
+                case "/":
+                    outputArabic = (int) (a / b);
+                    break;
+                default:
+                    outputArabic = 0;
+                    break;
+            }
+            return outputArabic;
+        }
+
+
+        public String getOutputRoman() {
+            outputRoman = RomanNumbers.arabicToRoman(getOutputArabic());
+            return outputRoman;
+        }
+
+
+        public String getOutput() {
+            if (numberType.equals("arab")) {
+                return String.valueOf(getOutputArabic());
+            } else if (numberType.equals("rome")) {
+                return getOutputRoman();
+            }
+            return null;
+        }
     }
