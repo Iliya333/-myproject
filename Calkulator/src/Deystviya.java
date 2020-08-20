@@ -29,13 +29,9 @@ public class Deystviya {
         action = operation;
         return iRez;
     }
-
-    public Integer resultArabic() {
+    public Integer result() {
         return iRez;
     }
 
-    public Integer resultRom() {
-                return iRez;
-       }
 
     }

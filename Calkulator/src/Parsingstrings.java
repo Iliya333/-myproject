@@ -3,10 +3,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class Parsingstrings {
     private static String s;
     private static String g;
-
 
     enum RomanNumeral {
         I(1), IV(4), V(5), IX(9), X(10),
@@ -32,7 +32,7 @@ public class Parsingstrings {
     }
 
     public Parsingstrings(String si) {
-        s = si;// (String gi { g=gi;}
+        s = si;
     }
 
     public static int toInt(String si) throws NoValidate {
@@ -86,9 +86,9 @@ public class Parsingstrings {
 
     }
 
-    public static String arabicToRoman(int number) {
-        if ((number <= 0) || (number > 4000)) {
-            throw new IllegalArgumentException(number + "вне допустимого диапазона (0,4000]");
+    public static String arabicToRoman(int namber) {
+        if ((namber <= 0) || (namber > 4000)) {
+            throw new IllegalArgumentException(namber + "Не можут быть меньше 0");
         }
 
         List<RomanNumeral> romanNumerals = RomanNumeral.getReverseSortedValues();
@@ -96,37 +96,23 @@ public class Parsingstrings {
         int i = 0;
         StringBuilder sb = new StringBuilder();
 
-        while ((number > 0) && (i < romanNumerals.size())) {
+        while ((namber > 0) && (i < romanNumerals.size())) {
             RomanNumeral currentSymbol = romanNumerals.get(i);
-            if (currentSymbol.getValue() <= number) {
+            if (currentSymbol.getValue() <= namber) {
                 sb.append(currentSymbol.name());
-                number -= currentSymbol.getValue();
+                namber -= currentSymbol.getValue();
             } else {
                 i++;
             }
         }
-
         return sb.toString();
+
     }
-}
-   // public Stringsofrome (String gi) {
-   //     g=gi;
-   // }
-  //  public  static int toIntе (String gi,) throws NoValidate {
-    //    if (TestCalculator.tipRA == TestCalculator.RomArab.Arab) {
-    //        return Integer.parseInt(gi);
-    //    } else if (TestCalculator.tipRA == TestCalculator.RomArab.Rom){
-    //        try{
-    //            Integer t = Integer.valueOf("gi");
-      //      } catch  (NumberFormatException e){
-    //            System.err.println("Неправильный формат строки!");
-    // //       }
-      // //     return arabicToRoman(t);
-      ///  } else throw new  NoValidate ("НЕ УСТАНОВЛЕН ТИП ЧИСЛА:"+gi);
+  }
 
-   // }
 
-//}
+
+
 
 
 

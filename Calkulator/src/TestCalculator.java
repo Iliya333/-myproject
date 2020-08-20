@@ -24,7 +24,7 @@ public class TestCalculator {
                       System.out.println("Введи выр. вида 1+9 или  римск. вида VII+IIL .");
             Scanner sc=new Scanner(System.in);
             try {
-                Pattern pattern=Pattern.compile("(?:([0-9]+)|([IVXLDMC]+))(\\s*[*/+-]\\s*)?+"); // шаблон
+                Pattern pattern=Pattern.compile("(?:([0-9]+)|([IVXLDMC]+))(\\s*[*/+-]\\s*)?+");
                 while (sc.hasNext()) {
                     int cntDig=0;
                     String inputs=sc.nextLine();
@@ -51,7 +51,7 @@ public class TestCalculator {
                                 throw new NoValidate ("НЕ АРАБСКАЯ ЦИФРА:"+si);
                             }
                             tipRA=RomArab.Rom;
-                            ival= Parsingstrings.toInt(si);
+                            Parsingstrings.toInt(si);
                             if (onlyFrom0to10 && (ival < 0 || ival>10)) throw new NoValidate ("Только от I до X, а ввели:"+si);// ошибка по 10> для римских цифр
                             if (only2digit && (cntDig>2)) throw new NoValidate ("Только 2 числа или присвойте, а ввели:"+cntDig);// ошибка по больше 2х чисел для римских цифр
                         }
@@ -59,13 +59,13 @@ public class TestCalculator {
                             String sz = matcher.group(3).trim();
                             action = Parsingstrings.toAction(sz);
                         } else action=Action.Eqv;
-                        exp.calc(ival,action);
+                          exp.calc(ival,action);
 
                     }
                     if (tipRA==RomArab.Arab) {
-                        System.out.println(exp.resultArabic());// выыод  выражения за араб
+                        System.out.println(exp.result());// выыод  выражения за араб
                     } else {
-                        System.out.println( "Римский результат = " + exp.resultRom());// выыод  выражения за рим
+                        System.out.println( "Римский результат = " + exp.result());// выыод  выражения за рим
                     }
 
 
