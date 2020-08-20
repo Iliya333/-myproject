@@ -24,7 +24,6 @@ public class Deystviya {
                 case Div:
                     iRez = iRez / ival;
             }
-
         }
         action = operation;
         return iRez;
@@ -32,6 +31,4 @@ public class Deystviya {
     public Integer result() {
         return iRez;
     }
-
-
     }
