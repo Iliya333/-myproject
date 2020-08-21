@@ -1,5 +1,4 @@
 public class Deystviya {
-
         private int a;
         private int b;
         private int outputArabic;
@@ -11,7 +10,7 @@ public class Deystviya {
             this.a = a;
             this.b = b;
             this.operation = operation;
-            if (!numberType.equals("Араб") && !numberType.equals("Рим")) {
+            if (!numberType.equals("arab") && !numberType.equals("rome")) {
                 System.err.println("Не соответствие типов чисел!");
                 System.exit(0);
             }
@@ -29,7 +28,6 @@ public class Deystviya {
         public String getOperation() {
             return operation;
         }
-
 
         public int getOutputArabic() {
             switch (operation) {
@@ -51,20 +49,16 @@ public class Deystviya {
             }
             return outputArabic;
         }
-
-
         public String getOutputRoman() {
             outputRoman = RomanNumbers.arabicToRoman(getOutputArabic());
             return outputRoman;
         }
-
-
         public String getOutput() {
-            if (numberType.equals("Араб")) {
+            if (numberType.equals("arab")) {
                 return String.valueOf(getOutputArabic());
-            } else if (numberType.equals("Рим")) {
+            } else if (numberType.equals("rome")) {
                 return getOutputRoman();
             }
             return null;
         }
-    }
+}
