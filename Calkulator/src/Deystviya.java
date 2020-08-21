@@ -10,7 +10,7 @@ public class Deystviya {
             this.a = a;
             this.b = b;
             this.operation = operation;
-            if (!numberType.equals("arab") && !numberType.equals("rome")) {
+            if (!numberType.equals("Арабские") && !numberType.equals("Римские")) {
                 System.err.println("Не соответствие типов чисел!");
                 System.exit(0);
             }
@@ -54,9 +54,9 @@ public class Deystviya {
             return outputRoman;
         }
         public String getOutput() {
-            if (numberType.equals("arab")) {
+            if (numberType.equals("Арабские")) {
                 return String.valueOf(getOutputArabic());
-            } else if (numberType.equals("rome")) {
+            } else if (numberType.equals("Римские")) {
                 return getOutputRoman();
             }
             return null;

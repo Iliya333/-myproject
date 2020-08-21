@@ -38,7 +38,7 @@ public class Parsingstrings{
         if (Pattern.matches(regexArab, str)) {
             for (char tmp: operations) {
                 if (str.indexOf(tmp) != -1) {
-                    numberType = "arab";
+                    numberType = "Арабские";
                     operation = String.valueOf(tmp);
                     strTmp = str.replace(tmp, ';');
                     arr = strTmp.split(";");
@@ -56,7 +56,7 @@ public class Parsingstrings{
         } else if (Pattern.matches(regexRome, str)) {
             for (char tmp: operations) {
                 if (str.indexOf(tmp) != -1) {
-                    numberType = "rome";
+                    numberType = "Римские";
                     operation = String.valueOf(tmp);
                     strTmp = str.replace(tmp, ';');
                     arr = strTmp.split(";");
